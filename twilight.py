@@ -12,7 +12,7 @@ import json
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify']
 
 # If read only mode is desired, uncomment this:
-SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+# SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 
 CREDS_FILE = __file__.replace(path.basename(__file__), "credentials.json")
 PICKLE_FILE = __file__.replace(path.basename(__file__), "token.pickle")
