@@ -17,7 +17,8 @@ def main(argv):
 
     button = os.getenv("BLOCK_BUTTON", "0") 
     clicked = button == "1" # Clicked; clear status, mark read
-    # Middile click: launch TS
+
+    # Middle click: launch TS
     if button == "2": 
         launch = "/usr/games/steam -applaunch 406290 > /dev/null &"
         os.system(launch)
