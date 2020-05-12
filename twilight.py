@@ -78,7 +78,7 @@ def get_counts():
 
     return len(messages), gameIds, playerCounts
 
-def markread():
+def markread(archive=False):
     messages = get_twilight_mail()
     if len(messages) == 0:
         return
@@ -88,5 +88,8 @@ def markread():
     ids = [m['id'] for m in messages]
     body['ids'] = ids
     body['removeLabelIds'] = ["UNREAD"]
+    if archive:
+        body['removeLabelIds'] = ["UNREAD", "INBOX"]
+
     mail_service.batchModify(userId='me', body=body).execute()
 
