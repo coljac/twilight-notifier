@@ -1,4 +1,6 @@
+#!/home/coljac/anaconda3/bin/python
 from twilight import *
+from pathlib import Path
 
 color_default = '#777777' # Default gray
 color_background = '#000000' 
@@ -9,8 +11,9 @@ flag_white = "🏳️"
 flag_black = "🏴"
 
 def main(argv):
-    if os.path.exists("friends.txt"):
-        with open("friends.txt", "r") as f:
+    here = str(Path(__file__).resolve().parent)
+    if os.path.exists(f"{here}/friends.txt"):
+        with open(f"{here}/friends.txt", "r") as f:
             friends = f.read().splitlines()
     else:
         friends = []
@@ -20,7 +23,8 @@ def main(argv):
 
     # Middle click: launch TS
     if button == "2": 
-        launch = "/usr/games/steam -applaunch 406290 > /dev/null &"
+        launch = "i3-msg -q exec '/usr/games/steam -applaunch 406290'"
+        # launch = "/home/coljac/dev/python/wtf/start_ts.sh &"
         os.system(launch)
         clicked = True
 
@@ -51,7 +55,7 @@ def main(argv):
     sys.stdout.flush()
 
     if clicked:
-        markread()
+        markread(archive=True)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
