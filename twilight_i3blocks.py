@@ -1,4 +1,4 @@
-#!/home/coljac/anaconda3/bin/python
+#!env python
 from twilight import *
 from pathlib import Path
 
@@ -24,7 +24,6 @@ def main(argv):
     # Middle click: launch TS
     if button == "2": 
         launch = "i3-msg -q exec '/usr/games/steam -applaunch 406290'"
-        # launch = "/home/coljac/dev/python/wtf/start_ts.sh &"
         os.system(launch)
         clicked = True
 

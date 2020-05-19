@@ -4,9 +4,13 @@ This python code checks your Gmail account (note: it's built using the Gmail API
 
 It returns the number of unread emails and the opponents of waiting games. It contains a method to mark the messages as read, so once you've dealt with the notification you can flag them as such in Gmail.
 
+## System tray
+
+An experimental system tray icon is included. It uses the python `pystray` module. Configure the script as below and try it out.
+
 ## i3blocks
 
-I use this in [i3blocks](https://github.com/vivien/i3blocks), a system bar containing 'blocklets' displaying handy information. It looks like this: ![i3blocks icon](icon.png). The code is included here as `twilight_i3blocks.py`.
+I use this in [i3blocks](https://github.com/vivien/i3blocks), a system bar containing 'blocklets' displaying handy information. It looks like this: ![i3blocks icon](example.png). The code is included here as `twilight_i3blocks.py`.
 
 ## Prerequisites
 
