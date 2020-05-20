@@ -60,11 +60,17 @@ def check(icon):
     icon.icon = create_image(color)
     icon.visible = True
 
+def clear(icon):
+    markread(archive=False)
+    icon.icon = create_image(color_default)
+    icon.visible = True
+
 def launch(icon):
     # launch = "steam -applaunch 406290"
     url = "steam://run/406290"
     # os.system(launch)
     webbrowser.open(url, new=2)
+    clear(icon)
 
 def main(argv):
     if os.path.exists(f"{here}/friends.txt"):
@@ -73,8 +79,10 @@ def main(argv):
 
     menu = pystray.Menu(
             pystray.MenuItem("Launch", launch),
-            pystray.MenuItem("Check now", check)
+            pystray.MenuItem("Check now", check),
+            pystray.MenuItem("Clear", clear)
             )
+
     icon = pystray.Icon("TS Notifier", 
             icon=create_image(color_default),
             title="TS Notifier",
