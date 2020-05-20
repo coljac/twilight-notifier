@@ -6,7 +6,7 @@ It returns the number of unread emails and the opponents of waiting games. It co
 
 ## System tray
 
-An experimental system tray icon is included. It uses the python `pystray` module. Configure the script as below and try it out.
+An system tray icon application is included as `systray.py`. It uses the python `pystray` module. Configure the script as below. It is cross-platform and has been tested on Linux and Windows.
 
 ## i3blocks
 
