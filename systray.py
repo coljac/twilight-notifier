@@ -13,9 +13,10 @@ color_background = '#000000'
 color_active = '#FF0000' # Waiting turn (friends)
 color_strangers = '#D608D2' # Waiting turn (anyone)
 color_both = '#01C626' # Waiting turns (both)
+friends = []
+here = str(Path(__file__).resolve().parent)            
 
 def create_image(color):                                   
-    here = str(Path(__file__).resolve().parent)            
     height=32                                              
     width=32                                               
     image = Image.new('RGB', (width, height), color)      
@@ -36,13 +37,9 @@ def check(icon):
             "strangers": color_strangers, 
             "none": color_default, 
             "both": color_both}
-    here = str(Path(__file__).resolve().parent)
-    if os.path.exists(f"{here}/friends.txt"):
-        with open(f"{here}/friends.txt", "r") as f:
-            friends = f.read().splitlines()
-    else:
-        friends = []
 
+
+    result = "none"
     if True:
         count, gameIds, playerCounts = get_counts()
         friends_games = strangers_games = False
@@ -53,14 +50,13 @@ def check(icon):
                 strangers_games = True
 
         if friends_games and strangers_games:
-            return "both"
+            result = "both"
         elif friends_games:
-            return "friends"
+            result = "friends"
         elif strangers_games:
-            return "strangers"
-    return "none"
+            result = "strangers"
 
-    color = colors[check()]
+    color = colors[result]
     icon.icon = create_image(color)
     icon.visible = True
 
@@ -71,6 +67,10 @@ def launch(icon):
     webbrowser.open(url, new=2)
 
 def main(argv):
+    if os.path.exists(f"{here}/friends.txt"):
+        with open(f"{here}/friends.txt", "r") as f:
+            friends.extend(f.read().splitlines())
+
     menu = pystray.Menu(
             pystray.MenuItem("Launch", launch),
             pystray.MenuItem("Check now", check)
