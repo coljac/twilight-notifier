@@ -6,6 +6,8 @@ from pathlib import Path
 from time import sleep
 import os
 import webbrowser
+from threading import Event
+
 sleeptime = 300
 
 color_default = '#777777' # Default gray
@@ -15,6 +17,7 @@ color_strangers = '#D608D2' # Waiting turn (anyone)
 color_both = '#01C626' # Waiting turns (both)
 friends = []
 here = str(Path(__file__).resolve().parent)            
+running = Event()
 
 def create_image(color):                                   
     height=32                                              
@@ -26,9 +29,10 @@ def create_image(color):
 
 
 def run(icon):
-    while True:
+    slept = 1e10
+    while not running.is_set():
         check(icon)
-        sleep(sleeptime)
+        running.wait(sleeptime)
     return
 
 def check(icon):
@@ -72,6 +76,10 @@ def launch(icon):
     webbrowser.open(url, new=2)
     clear(icon)
 
+def quit(icon):
+    running.set()
+    icon.stop()
+
 def main(argv):
     if os.path.exists(f"{here}/friends.txt"):
         with open(f"{here}/friends.txt", "r") as f:
@@ -80,7 +88,8 @@ def main(argv):
     menu = pystray.Menu(
             pystray.MenuItem("Launch", launch),
             pystray.MenuItem("Check now", check),
-            pystray.MenuItem("Clear", clear)
+            pystray.MenuItem("Clear", clear),
+            pystray.MenuItem("Quit", quit),
             )
 
     icon = pystray.Icon("TS Notifier", 
