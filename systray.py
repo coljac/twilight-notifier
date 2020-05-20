@@ -4,7 +4,8 @@ from PIL import Image, ImageDraw
 from twilight import *
 from pathlib import Path
 from time import sleep
-
+import os
+import webbrowser
 sleeptime = 300
 
 color_default = '#777777' # Default gray
@@ -22,25 +23,19 @@ def create_image(color):
     image.paste(image2, (0, 0), image2)
     return image
 
-def main(argv):
-    here = str(Path(__file__).resolve().parent)
-    icon = pystray.Icon('Twilight Struggle')
-    icon.icon = create_image(color_default)
-    icon.run(run)
-    print("BOB")
 
 def run(icon):
-    color = color_default
-    colors = {"friends": color_active, "strangers": color_strangers, 
-            "none": color_default, "both": color_both}
     while True:
-        color = colors[check()]
-        icon.icon = create_image(color)
-        icon.visible = True
+        check(icon)
         sleep(sleeptime)
     return
 
-def check():
+def check(icon):
+    color = color_default
+    colors = {"friends": color_active, 
+            "strangers": color_strangers, 
+            "none": color_default, 
+            "both": color_both}
     here = str(Path(__file__).resolve().parent)
     if os.path.exists(f"{here}/friends.txt"):
         with open(f"{here}/friends.txt", "r") as f:
@@ -64,6 +59,28 @@ def check():
         elif strangers_games:
             return "strangers"
     return "none"
+
+    color = colors[check()]
+    icon.icon = create_image(color)
+    icon.visible = True
+
+def launch(icon):
+    # launch = "steam -applaunch 406290"
+    url = "steam://run/406290"
+    # os.system(launch)
+    webbrowser.open(url, new=2)
+
+def main(argv):
+    menu = pystray.Menu(
+            pystray.MenuItem("Launch", launch),
+            pystray.MenuItem("Check now", check)
+            )
+    icon = pystray.Icon("TS Notifier", 
+            icon=create_image(color_default),
+            title="TS Notifier",
+            menu=menu)
+    icon.visible = True
+    icon.run(run)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
