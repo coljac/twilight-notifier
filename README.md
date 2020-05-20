@@ -10,7 +10,11 @@ An system tray icon application is included as `systray.py`. It uses the python 
 
 ## i3blocks
 
-I use this in [i3blocks](https://github.com/vivien/i3blocks), a system bar containing 'blocklets' displaying handy information. It looks like this: ![i3blocks icon](example.png). The code is included here as `twilight_i3blocks.py`.
+I use this in [i3blocks](https://github.com/vivien/i3blocks), a system bar containing 'blocklets' displaying handy information. It looks like this:
+
+![i3blocks icon](example.png). 
+
+The code is included here as `twilight_i3blocks.py`.
 
 ## Prerequisites
 
